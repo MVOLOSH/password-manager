@@ -1,5 +1,27 @@
 from tkinter import *
 from tkinter import messagebox
+from random import randint, shuffle, choice
+import pyperclip
+
+def generate_password():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+               'v','w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+               'Q','R','S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    pw_letters = [choice(letters) for _ in range(randint(6, 8))]
+    pw_numbers = [choice(numbers) for _ in range(randint(3, 5))]
+    pw_symbols = [choice(symbols) for _ in range(randint(3, 5))]
+
+    password_list = pw_letters + pw_numbers + pw_symbols
+    shuffle(password_list)
+
+    password = ''.join(password_list)
+    password_enter.delete(0, END)
+    password_enter.insert(0,password)
+    pyperclip.copy(password)
+
 
 
 def save_to_file():
@@ -46,7 +68,7 @@ email_enter.grid(row=2, column=1, columnspan=2)
 password_enter = Entry(width=30)
 password_enter.grid(row=3, column=1, columnspan=2)
 
-generate_password_button = Button(text="Generate Password", width=25)
+generate_password_button = Button(text="Generate Password", width=25,command=generate_password)
 generate_password_button.grid(row=4, column=1, columnspan=2)
 
 add_button = Button(text="Add", width=25, command=save_to_file)
