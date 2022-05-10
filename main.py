@@ -1,13 +1,21 @@
 from tkinter import *
+from tkinter import messagebox
 
 
 def save_to_file():
-    with open("data.txt", "a") as data_file:
-        data_file.write(f"{website_enter.get()} \t|\t {email_enter.get()} \t|\t {password_enter.get()}\n")
-        website_enter.delete(0, END)
-        email_enter.delete(0, END)
-        password_enter.delete(0, END)
-        website_enter.focus()
+    if len(website_enter.get()) == 0 or len(password_enter.get()) == 0:
+        messagebox.showinfo(title="Oops", message="Dont leave empty fields!")
+    else:
+        is_okay = messagebox.askokcancel(title="website", message=f"Email/Username: {email_enter.get()}"
+                                                                  f"\nPassword: {password_enter.get()}"
+                                                                  f"\nDo you want to save it?")
+        if is_okay:
+            with open("data.txt", "a") as data_file:
+                data_file.write(f"{website_enter.get()} \t|\t {email_enter.get()} \t|\t {password_enter.get()}\n")
+                website_enter.delete(0, END)
+                email_enter.delete(0, END)
+                password_enter.delete(0, END)
+                website_enter.focus()
 
 
 window = Tk()
@@ -41,7 +49,7 @@ password_enter.grid(row=3, column=1, columnspan=2)
 generate_password_button = Button(text="Generate Password", width=25)
 generate_password_button.grid(row=4, column=1, columnspan=2)
 
-add_button = Button(text="Add", width=25,command=save_to_file)
+add_button = Button(text="Add", width=25, command=save_to_file)
 add_button.grid(row=5, column=1, columnspan=2)
 
 window.mainloop()
