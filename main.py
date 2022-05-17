@@ -71,6 +71,8 @@ def save_to_file():
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50)
+window.minsize(width=500,height=500)
+
 
 canvas = Canvas(height=250, width=250)
 logo = PhotoImage(file="logo.png")
